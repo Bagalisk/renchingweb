@@ -18,6 +18,69 @@ import webapp2
 import urllib2
 import os
 from google.appengine.ext.webapp import template
+from google.appengine.ext import db
+
+class Student(db.Model):
+    name = db.StringProperty()
+    address = db.StringProperty()
+    parent_name = db.StringProperty()
+    parent_tel = db.StringProperty()
+    emergency_tel = db.StringProperty()
+    school = db.StringProperty()
+    classno = db.StringProperty()
+    teacher = db.StringProperty()
+    teacher_tel = db.StringProperty()
+    district = db.StringProperty()
+    progress = db.StringProperty(multiline=True)
+    exams = db.StringProperty(multiline=True)
+    daily_notes = db.StringProperty(multiline=True)
+    contact_matters = db.StringProperty(multiline=True)
+    date = db.DateTimeProperty(auto_now_add=True)
+
+
+class LoginHandler(webapp2.RequestHandler):
+    def get(self):
+        r = self.response
+        template_values = { }
+
+        request = urllib2.unquote(self.request.path)
+        path = os.path.join(os.path.dirname(__file__), 'login.html')
+
+        r.out.write(template.render(path, template_values))
+
+    def post(self):
+        q = self.request
+        r = self.response
+        password = q.get('password')
+        if password=='1111':
+            self.redirect('/students')
+        else:
+            r.write('login failed')
+
+
+class StudentsHandler(webapp2.RequestHandler):
+    def get(self):
+        r = self.response
+        template_values = { }
+
+        request = urllib2.unquote(self.request.path)
+        path = os.path.join(os.path.dirname(__file__), 'students.html')
+        r.out.write(template.render(path, template_values))
+        
+class NewStudentHandler(webapp2.RequestHandler):
+    def get(self):
+        r = self.response
+        template_values = { }
+
+        request = urllib2.unquote(self.request.path)
+        path = os.path.join(os.path.dirname(__file__), 'student.html')
+        r.out.write(template.render(path, template_values))
+
+    def post(self):
+        q = self.request
+        r = self.response
+        s = Student
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -44,5 +107,8 @@ class CommandHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
+    , ('/login', LoginHandler)
+    , ('/students', StudentsHandler)
+    , ('/student', NewStudentHandler)
     , ('/.*', CommandHandler)
 ], debug=True)
