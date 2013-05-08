@@ -76,11 +76,13 @@ class StudentHandler(webapp2.RequestHandler):
     def get(self):
         q = self.request
         r = self.response
-        s = Student(key_name=q.get('no','0'))
+        s = Student.gql('where no =:1',int(q.get('no','0'))).get()
         
         template_values = { }
 
         template_values['s'] = s
+        if s!= None and s.name == None:
+            s.name = '[Name]'
 
         request = urllib2.unquote(self.request.path)
         path = os.path.join(os.path.dirname(__file__), 'student.html')

@@ -32,7 +32,7 @@
 {% for s in students %}
     <tr>
       <td>{{s.no}}</td>
-      <td><a href='/student?no={{s.no}}'>aaa{{s.name}}</a></td>
+      <td><a href='/student?no={{s.no}}'>{{s.name}}</a></td>
       <td>{{s.address}}</td>
       <td>{{s.parent_name}}</td>
       <td>{{s.parent_tel}}</td>
