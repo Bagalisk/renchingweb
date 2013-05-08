@@ -32,7 +32,7 @@
 {% for s in students %}
     <tr>
       <td>{{s.no}}</td>
-      <td>{{s.name}}</td>
+      <td><a href='/student?no={{s.no}}'>aaa{{s.name}}</a></td>
       <td>{{s.address}}</td>
       <td>{{s.parent_name}}</td>
       <td>{{s.parent_tel}}</td>
@@ -46,7 +46,7 @@
       <td>{{s.exams}}</td>
       <td>{{s.daily_notes}}</td>
       <td>{{s.contact_matters}}</td>
-      <td><a href=''>[修改]</a> <a href=''>[刪除]</a></td>
+      <td> <a href=''>[刪除]</a></td>
     </tr>
 {% endfor %}
 
