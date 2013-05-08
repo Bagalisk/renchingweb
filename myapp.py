@@ -64,19 +64,28 @@ class StudentsHandler(webapp2.RequestHandler):
         r = self.response
         template_values = { }
 
-        students = Student.all()
+#        students = Student.all()
+#        ss = students.order('no')
+#        try:
+#            sss = ss.get()
+#        except Exception as e:
+#            r.write(e)
         
-        for s in students.run(limit=5):
-            r.write(s.no)
-
+#        template_values['students'] = students
+        
         request = urllib2.unquote(self.request.path)
         path = os.path.join(os.path.dirname(__file__), 'students.html')
         r.out.write(template.render(path, template_values))
         
-class NewStudentHandler(webapp2.RequestHandler):
+class StudentHandler(webapp2.RequestHandler):
     def get(self):
+        q = self.request
         r = self.response
+        s = Student.gql('where no=:1 limit 1',int(q.get('no','0'))).get()
+
         template_values = { }
+
+        template_values['s'] = s
 
         request = urllib2.unquote(self.request.path)
         path = os.path.join(os.path.dirname(__file__), 'student.html')
@@ -133,6 +142,6 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler)
     , ('/login', LoginHandler)
     , ('/students', StudentsHandler)
-    , ('/student', NewStudentHandler)
+    , ('/student', StudentHandler)
     , ('/.*', CommandHandler)
 ], debug=True)

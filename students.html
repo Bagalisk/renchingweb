@@ -6,48 +6,52 @@
 
 <body>
 
+新增資料後，資料更新會有些延遲時間，若您的資料沒有顯示在列表中，請稍候並重新載入網頁試試！
+
 <p><a href='student'>新增</a></p>
 <p>[學生清單]</p>
 <p>
-  <table border='1'>
+  <table border='1' width='100%'>
     <tr>
       <th>序號</th>
-      <th>姓名</th>
-      <th>住址</th>
-      <th>家長</th>
-      <th>電話</th>
-      <th>緊急聯絡電話</th>
-      <th>學校</th>
-      <th>班級</th>
-      <th>老師</th>
-      <th>電話</th>
       <th>地區</th>
-      <th>評量完成進度</th>
-      <th>考試成績</th>
-      <th>日常表現</th>
-      <th>聯絡事項</th>
+      <th>姓名</th>
+      <th>家長
+      <p>電話
+      <p>住址
+      <p>緊急聯絡電話</th>
+      <th>學校
+      <p>班級
+      <p>老師
+      <p>電話</th>
+      <th>評量完成進度
+      <p>考試成績
+      <p>日常表現
+      <p>聯絡事項</th>
       <th></th>
     </tr>
 
+{% for s in students %}
     <tr>
-      <td>1</td>
-      <td>陳耀將</td>
-      <td>新北市三重區</td>
-      <td>陳爸爸</td>
-      <td>0953042886</td>
-      <td>0953042886</td>
-      <td>板橋國小</td>
-      <td>621</td>
-      <td>林玉秀</td>
-      <td>02-9988-9898</td>
-      <td>板橋</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><a href=''>[修改]</a> <a href=''>[刪除]</a></td>
+      <td>{{s.no}}</td>
+      <td>{{s.district}}</td>
+      <td><a href='/student?no={{s.no}}'>{{s.name}}</a></td>
+      <td>{{s.parent_name}}
+      <p>{{s.parent_tel}}
+      <p>{{s.address}}
+      <p>{{s.emergency_tel}}</td>
+      <td>{{s.school}}
+      <p>{{s.classno}}
+      <p>{{s.teacher}}
+      <p>{{s.teacher_tel}}</td>
+      <td><textarea cols='40' rows='5' type='text' readonly>{{s.progress}}</textarea>
+      <p><textarea cols='40' rows='5' type='text' readonly>{{s.exams}}</textarea>
+      <p><textarea cols='40' rows='5' type='text' readonly>{{s.daily_notes}}</textarea>
+      <p><textarea cols='40' rows='5' type='text' readonly>{{s.contact_matters}}</textarea></td>
+      <td><a href=''>[刪除]</a></td>
     </tr>
-  
+{% endfor %}
+
   </table>
 </p>
 
