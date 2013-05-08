@@ -67,6 +67,9 @@ class StudentsHandler(webapp2.RequestHandler):
         students = Student.all().fetch(100)
         
         template_values['students'] = students
+        for s in students:
+            if s!= None and ( s.name == None or len(s.name)==0 ):
+                s.name = '[Name]'
 
         request = urllib2.unquote(self.request.path)
         path = os.path.join(os.path.dirname(__file__), 'students.html')
@@ -79,10 +82,7 @@ class StudentHandler(webapp2.RequestHandler):
         s = Student.gql('where no =:1',int(q.get('no','0'))).get()
         
         template_values = { }
-
         template_values['s'] = s
-        if s!= None and s.name == None:
-            s.name = '[Name]'
 
         request = urllib2.unquote(self.request.path)
         path = os.path.join(os.path.dirname(__file__), 'student.html')
