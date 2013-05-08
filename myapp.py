@@ -21,6 +21,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext import db
 
 class Student(db.Model):
+    no = db.IntegerProperty()
     name = db.StringProperty()
     address = db.StringProperty()
     parent_name = db.StringProperty()
@@ -63,6 +64,11 @@ class StudentsHandler(webapp2.RequestHandler):
         r = self.response
         template_values = { }
 
+        students = Student.all()
+        
+        for s in students.run(limit=5):
+            r.write(s.no)
+
         request = urllib2.unquote(self.request.path)
         path = os.path.join(os.path.dirname(__file__), 'students.html')
         r.out.write(template.render(path, template_values))
@@ -79,7 +85,25 @@ class NewStudentHandler(webapp2.RequestHandler):
     def post(self):
         q = self.request
         r = self.response
-        s = Student
+        s = Student(key_name=q.get('no','0'))
+        s.no = int(q.get('no','0'))
+        s.name = q.get('name','')
+        s.address = q.get('address','')
+        s.parent_name = q.get('parent_name','')
+        s.parent_tel = q.get('parent_tel','')
+        s.emergency_tel = q.get('emergency_tel','')
+        s.school = q.get('school','')
+        s.classno = q.get('classno','')
+        s.teacher = q.get('teacher','')
+        s.teacher_tel = q.get('teacher_tel','')
+        s.district = q.get('district','')
+        s.progress = q.get('progress','')
+        s.exams = q.get('exams','')
+        s.daily_notes = q.get('daily_notes','')
+        s.contact_matters = q.get('contact_matters','')
+        s.put()
+        
+        self.redirect('/students')
 
 
 class MainHandler(webapp2.RequestHandler):
