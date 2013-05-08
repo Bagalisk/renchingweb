@@ -64,15 +64,10 @@ class StudentsHandler(webapp2.RequestHandler):
         r = self.response
         template_values = { }
 
-#        students = Student.all()
-#        ss = students.order('no')
-#        try:
-#            sss = ss.get()
-#        except Exception as e:
-#            r.write(e)
+        students = Student.all().fetch(100)
         
-#        template_values['students'] = students
-        
+        template_values['students'] = students
+
         request = urllib2.unquote(self.request.path)
         path = os.path.join(os.path.dirname(__file__), 'students.html')
         r.out.write(template.render(path, template_values))
@@ -81,8 +76,8 @@ class StudentHandler(webapp2.RequestHandler):
     def get(self):
         q = self.request
         r = self.response
-        s = Student.gql('where no=:1 limit 1',int(q.get('no','0'))).get()
-
+        s = Student(key_name=q.get('no','0'))
+        
         template_values = { }
 
         template_values['s'] = s
