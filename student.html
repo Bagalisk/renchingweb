@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <div class='student' style='position:absulote; top:0px; width:50%'>
+    <div class='student' style='position:absulote; top:0px; width:40%'>
       <h1>學生資料</h1>
       <form method='post' action='student'>
         <p><input type='text' name='no' value='{{s.no}}' placeholder='序號'/></p>
@@ -27,31 +27,32 @@
       </form>
     </div>
 
-    <div class='student-detail' style='position:absolute; top:0px; width:50%; left:500;'>
+    <div class='student-detail' style='position:absolute; top:0px; left:40%;'>
       <h1>每日學生紀錄</h1>
       <table border='1'>
         <tr>
           <th>日期</th>
-          <th>考試成績</th>
-          <th>日常表現</th>
-          <th>聯絡事項</th>
+          <th></th>
           <th></th>
         </tr>
     
     {% for sd in student_details %}
         <tr>
-          <td><input type='text' name='date' value='{{sd.date}}' placeholder='日期'/></td>
-          <td><textarea type='text' cols='40' rows='5' name='exams' value='{{sd.exams}}' placeholder='考試成績'></textarea></td>
-          <td><textarea type='text' cols='40' rows='5' name='daily_notes' value='{{sd.daily_notes}}' placeholder='日常表現'></textarea></td>
-          <td><textarea type='text' cols='40' rows='5' name='contact_matters' value='{{sd.contact_matters}}' placeholder='家長聯絡事項'></textarea></td>
+          <td>{{sd.date}}</td>
+          <td>{{sd.exams}}</td>
+          <td>{{sd.daily_notes}}</td>
+          <td>{{sd.contect_matters}}</td>
           <td> <a href=''>[-]</a></td>
         </tr>
     {% endfor %}
         <tr>
-          <td><a href=''>[+]</a></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <form method='post' action='student_detail'>
+          <td><input type='text' name='date' value='{{now}}' placeholder='日期'/></td>
+          <td><textarea type='text' cols='40' rows='5' name='exams' value='' placeholder='考試成績'></textarea></p>
+           <p><textarea type='text' cols='40' rows='5' name='daily_notes' value='' placeholder='日常表現'></textarea></p>
+           <p><textarea type='text' cols='40' rows='5' name='contact_matters' value='' placeholder='家長聯絡事項'></textarea></p></td>
+          <td><input type='submit' name='commit' value='儲存'></td>
+          </form>
         </tr>
       </table>
     </div>
