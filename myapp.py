@@ -20,8 +20,16 @@ import os
 from google.appengine.ext.webapp import template
 from google.appengine.ext import db
 
+class StudentDetail(db.Model):
+    no = db.IntegerProperty()
+    date = db.StringProperty()
+    exams = db.StringProperty(multiline=True)
+    daily_notes = db.StringProperty(multiline=True)
+    contact_matters = db.StringProperty(multiline=True)
+
 class Student(db.Model):
     no = db.IntegerProperty()
+    birthday = db.StringProperty()
     name = db.StringProperty()
     address = db.StringProperty()
     parent_name = db.StringProperty()
@@ -74,6 +82,7 @@ class StudentHandler(webapp2.RequestHandler):
         s = Student(key_name=q.get('no','0'))
         s.no = int(q.get('no','0'))
         s.name = q.get('name','')
+        s.birthday = q.get('birthday','')
         s.address = q.get('address','')
         s.parent_name = q.get('parent_name','')
         s.parent_tel = q.get('parent_tel','')

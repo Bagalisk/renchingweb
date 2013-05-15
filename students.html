@@ -6,13 +6,14 @@
 
 <body>
 
-<p>[學生清單]</p>
+<h1>學生清單</h1>
 <p>
   <table border='1'>
     <tr>
       <th>序號</th>
       <th>地區</th>
       <th>姓名</th>
+      <th>生日</th>
       <th>家長</th>
       <th>電話</th>
       <th>住址</th>
@@ -32,6 +33,7 @@
       <td>{{s.no}}</td>
       <td>{{s.district}}</td>
       <td><a href='/student?no={{s.no}}'>{{s.name}}</a></td>
+      <td>{{s.birthday}}</td>
       <td>{{s.parent_name}}</td>
       <td>{{s.parent_tel}}</td>
       <td>{{s.address}}</td>
@@ -48,7 +50,7 @@
 {% endfor %}
 
     <tr>
-      <td><p><a href='student'>[+]</a></p>
+      <td><p><a href='student'>[+]</a></p></td>
       <td></td>
       <td></td>
       <td></td>

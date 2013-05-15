@@ -5,12 +5,13 @@
 </head>
 
 <body>
-    <div class='student'>
+    <div class='student' style='position:absulote; top:0px; width:50%'>
       <h1>學生資料</h1>
       <form method='post' action='student'>
         <p><input type='text' name='no' value='{{s.no}}' placeholder='序號'/></p>
         <p><input type='text' name='district' value='{{s.district}}' placeholder='所屬地區'/></p>
         <p><input type='text' name='name' value='{{s.name}}' placeholder='姓名'/>
+           <input type='text' name='birthday' value='{{s.birthday}}' placeholder='生日'/>
            <input type='text' name='address' value='{{s.address}}' placeholder='住址'/></p>
         <p><input type='text' name='parent_name' value='{{s.parent_name}}' placeholder='家長姓名'/>
            <input type='text' name='parent_tel' value='{{s.parent_tel}}' placeholder='電話'/>
@@ -24,6 +25,35 @@
         <p><textarea type='text' cols='40' rows='5' name='contact_matters' value='{{s.contact_matters}}' placeholder='家長聯絡事項'></textarea></p>
         <p class='submit'><input type='submit' name='commit' value='儲存'></p>
       </form>
+    </div>
+
+    <div class='student-detail' style='position:absolute; top:0px; width:50%; left:500;'>
+      <h1>每日學生紀錄</h1>
+      <table border='1'>
+        <tr>
+          <th>日期</th>
+          <th>考試成績</th>
+          <th>日常表現</th>
+          <th>聯絡事項</th>
+          <th></th>
+        </tr>
+    
+    {% for sd in student_details %}
+        <tr>
+          <td><input type='text' name='date' value='{{sd.date}}' placeholder='日期'/></td>
+          <td><textarea type='text' cols='40' rows='5' name='exams' value='{{sd.exams}}' placeholder='考試成績'></textarea></td>
+          <td><textarea type='text' cols='40' rows='5' name='daily_notes' value='{{sd.daily_notes}}' placeholder='日常表現'></textarea></td>
+          <td><textarea type='text' cols='40' rows='5' name='contact_matters' value='{{sd.contact_matters}}' placeholder='家長聯絡事項'></textarea></td>
+          <td> <a href=''>[-]</a></td>
+        </tr>
+    {% endfor %}
+        <tr>
+          <td><a href=''>[+]</a></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
     </div>
 
 </body>
