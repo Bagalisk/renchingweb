@@ -39,26 +39,6 @@ class Student(db.Model):
     date = db.DateTimeProperty(auto_now_add=True)
 
 
-class LoginHandler(webapp2.RequestHandler):
-    def get(self):
-        r = self.response
-        template_values = { }
-
-        request = urllib2.unquote(self.request.path)
-        path = os.path.join(os.path.dirname(__file__), 'login.html')
-
-        r.out.write(template.render(path, template_values))
-
-    def post(self):
-        q = self.request
-        r = self.response
-        password = q.get('password')
-        if password=='1111':
-            self.redirect('/students')
-        else:
-            r.write('login failed')
-
-
 class StudentsHandler(webapp2.RequestHandler):
     def get(self):
         r = self.response
@@ -111,20 +91,30 @@ class StudentHandler(webapp2.RequestHandler):
         
         self.redirect('/students')
 
-
-class MainHandler(webapp2.RequestHandler):
+class LoginHandler(webapp2.RequestHandler):
     def get(self):
         r = self.response
         template_values = { }
 
         request = urllib2.unquote(self.request.path)
-
-        if request=='/':
-            path = os.path.join(os.path.dirname(__file__), 'index.html')
-        else:
-            path = os.path.join(os.path.dirname(__file__), request+'.html')
+        path = os.path.join(os.path.dirname(__file__), 'login.html')
 
         r.out.write(template.render(path, template_values))
+
+    def post(self):
+        q = self.request
+        r = self.response
+        password = q.get('password')
+        if password=='1111':
+            self.redirect('/students')
+        else:
+            r.write('login failed')
+
+
+
+class MainHandler(webapp2.RequestHandler):
+    def get(self):
+        self.redirect('/login')
         
 class CommandHandler(webapp2.RequestHandler):
     def get(self):

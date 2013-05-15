@@ -6,13 +6,12 @@
 
 <body>
 
-<p><a href='student'>新增</a></p>
 <p>[學生清單]</p>
 <p>
   <table border='1'>
     <tr>
-      <th>地區</th>
       <th>序號</th>
+      <th>地區</th>
       <th>姓名</th>
       <th>家長</th>
       <th>電話</th>
@@ -30,8 +29,8 @@
     
 {% for s in students %}
     <tr>
-      <td>{{s.district}}</td>
       <td>{{s.no}}</td>
+      <td>{{s.district}}</td>
       <td><a href='/student?no={{s.no}}'>{{s.name}}</a></td>
       <td>{{s.parent_name}}</td>
       <td>{{s.parent_tel}}</td>
@@ -44,9 +43,28 @@
       <td>{{s.exams}}</td>
       <td>{{s.daily_notes}}</td>
       <td>{{s.contact_matters}}</td>
-      <td> <a href=''>[刪除]</a></td>
+      <td> <a href=''>[-]</a></td>
     </tr>
 {% endfor %}
+
+    <tr>
+      <td><p><a href='student'>[+]</a></p>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+</td>
+    </tr>
 
   </table>
 </p>
